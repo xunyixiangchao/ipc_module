@@ -33,15 +33,24 @@ public abstract class IPCService extends Service {
                     //执行静态方法，单例
                     case Request.GET_INSTANCE:
                         try {
-                            Object invoke = method.invoke(null, objects);
+                            Object result = method.invoke(null, objects);
+                            Registry.getInstance().putInstanceObject(serviceId, result);
                             return new Response(null, true);
                         } catch (Exception e) {
                             e.printStackTrace();
-                            return new Response(null, true);
+                            return new Response(null, false);
                         }
                         //执行普通方法
                     case Request.GET_METHOD:
-                        break;
+                        try {
+                            Object instanceObject = Registry.getInstance().getInstanceObject(serviceId);
+                            //获得结果
+                            Object result = method.invoke(instanceObject, objects);
+                            return new Response(gson.toJson(result), true);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return new Response(null, false);
+                        }
 
                 }
                 return null;

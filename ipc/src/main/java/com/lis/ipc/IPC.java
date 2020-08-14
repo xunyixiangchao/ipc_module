@@ -20,11 +20,14 @@ public class IPC {
      * 连接
      *
      * @param context
-     * @param tClass
+     * @param service
      */
-    public static void connect(Context context, Class<?> tClass) {
+    public static void connect(Context context, Class<? extends IPCService> service) {
+        Channel.getInstance().bind(context, null, service);
+    }
 
-
+    public static void connect(Context context, String packageName, Class<? extends IPCService> service) {
+        Channel.getInstance().bind(context, packageName, service);
     }
 
     // public static <T> T getInstanceWithName(Class<? extends IPCService> service, Class<T> instanceClass, String methodName, Object...

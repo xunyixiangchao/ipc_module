@@ -17,6 +17,8 @@ public class Registry {
     //方法表
     private ConcurrentHashMap<Class<?>, ConcurrentHashMap<String, Method>> mMethods =
             new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, Object> objects =
+            new ConcurrentHashMap<>();
 
     public static Registry getInstance() {
         if (mRegistry == null) {
@@ -101,5 +103,12 @@ public class Registry {
         return methods.get(builder.toString());
     }
 
+    public void putInstanceObject(String type, Object object) {
+        objects.put(type, object);
+    }
+
+    public Object getInstanceObject(String type) {
+        return objects.get(type);
+    }
 
 }
