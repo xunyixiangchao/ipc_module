@@ -8,6 +8,12 @@ public class Location implements Parcelable {
     double lat;
     double lng;
 
+    public Location(String address, double lat, double lng) {
+        this.address = address;
+        this.lat = lat;
+        this.lng = lng;
+    }
+
     protected Location(Parcel in) {
         address = in.readString();
         lat = in.readDouble();
@@ -36,5 +42,14 @@ public class Location implements Parcelable {
         dest.writeString(address);
         dest.writeDouble(lat);
         dest.writeDouble(lng);
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "address='" + address + '\'' +
+                ", lat=" + lat +
+                ", lng=" + lng +
+                '}';
     }
 }

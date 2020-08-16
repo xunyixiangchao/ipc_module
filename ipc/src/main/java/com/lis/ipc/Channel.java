@@ -61,7 +61,7 @@ public class Channel {
         mServiceConnections.put(service, ipcServiceConnection);
 
         Intent intent;
-        if (TextUtils.isEmpty(packageName)) {
+        if (!TextUtils.isEmpty(packageName)) {
             intent = new Intent();
             intent.setClassName(packageName, service.getName());
         } else {
@@ -113,10 +113,13 @@ public class Channel {
         }
         ServiceId annotation = classType.getAnnotation(ServiceId.class);
         String serviceId = annotation.value();
+
         Request request = new Request(type, serviceId, methodName, makeParameters(parameters));
         try {
             return iipcService.send(request);
         } catch (RemoteException e) {
+            e.printStackTrace();
+            //也可以把null变成错误信息
             return new Response(null, false);
         }
     }

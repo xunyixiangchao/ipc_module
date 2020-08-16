@@ -24,7 +24,7 @@ public class GpsService extends Service {
     public void onCreate() {
         super.onCreate();
         //定位
-        // LocationManager.getDefault().setLocation(new Location());
+        LocationManager.getDefault().setLocation(new Location("天空之城",1.1d,2.2d));
         /**
          * 在数据服务提供方进行注册
          */
