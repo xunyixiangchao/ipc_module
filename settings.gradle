@@ -1,3 +1,4 @@
 rootProject.name='IPC_module'
 include ':app'
 include ':ipc'
+include ':app2'
